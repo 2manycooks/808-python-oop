@@ -47,45 +47,45 @@
 
 
 
-import math # gotta import that math!
+# import math # gotta import that math!
 
-class Point():
-    def __init__(self, x=0, y=0):
-        self.x = x
-        self.y = y
+# class Point():
+#     def __init__(self, x=0, y=0):
+#         self.x = x
+#         self.y = y
 
-    def __str__(self):
-        return f'{self.x},{self.y}'
+#     def __str__(self):
+#         return f'{self.x},{self.y}'
 
-    # def distance(self):
-    #     return math.sqrt(self.x**2 + self.y**2)
+#     # def distance(self):
+#     #     return math.sqrt(self.x**2 + self.y**2)
 
-    def distance(self, p2):
-        dx = self.x - p2.x
-        dy = self.y - p2.y
-        return math.sqrt(dx**2 + dy**2)
+#     def distance(self, p2):
+#         dx = self.x - p2.x
+#         dy = self.y - p2.y
+#         return math.sqrt(dx**2 + dy**2)
 
     
 
 # attach ORIGIN after the Point class is defined
 
-Point.ORIGIN = Point()
+# Point.ORIGIN = Point()
 
-# p0 = Point()
-# p1 = Point(2,8)
-p3 = Point(6, 13)
-p4 = Point(1,1)
+# # p0 = Point()
+# # p1 = Point(2,8)
+# p3 = Point(6, 13)
+# p4 = Point(1,1)
 
 
-# print(p3.distance(p4))
+# # print(p3.distance(p4))
 
-# print(Point.ORIGIN)
+# # print(Point.ORIGIN)
 
-p5 = Point(3,4)
-p6 = Point(3,19)
+# p5 = Point(3,4)
+# p6 = Point(3,19)
 
-# Distance defaults to calculating how far away a Point is from ORIGIN
-print(p5.ORIGIN)
+# # Distance defaults to calculating how far away a Point is from ORIGIN
+# print(p5.ORIGIN)
 
 
 
@@ -122,3 +122,83 @@ print(p5.ORIGIN)
 # gabes_account = BankAccount('checking', 100)
 # gabes_account.withdraw(150)
 # print(gabes_account)
+
+
+
+
+
+
+
+#####  CLASS INHERITANCE LECTURE #####
+
+# All phones: 
+
+# have a phone number
+
+# can place phone calls
+
+# can send text message
+
+class Phone():
+    def __init__(self, phone_number):
+        self.phone_number = phone_number
+
+    def __str__(self):
+        return str(self.phone_number)
+
+    def call(self, other_number = None):
+        if(other_number == None):
+            other_number = self.BBQ
+        print(f'Ring-a-ding-ding, calling {other_number} from {self.phone_number}')
+
+    def text(self, other_number, msg):
+        print(f'beet boop sending text from {self.phone_number} to {other_number}')
+        print(msg)
+
+
+gabes_phone = Phone(6666661234)
+Phone.BBQ = 5105483936
+# gabes_phone.text(123456789, "u up?")
+
+# to create a subclass, you just need to pass the parent class as a parameter!
+
+class IPhone(Phone):
+    def __init__(self, phone_number, generation, color):
+        super().__init__(phone_number)
+        self.generation = generation
+        self.color = color
+        self.fingerprint = None
+
+    def __str__(self):
+        return f'gen {self.generation} {self.color} Iphone {self.phone_number}'
+
+    def set_fingerprint(self, my_fingerprint):
+        self.fingerprint = my_fingerprint
+
+    def unlock(self, fingerprint=None):
+        if (not self.fingerprint):
+            print("Phone unlocked because fingerprint not set yet.")
+        elif ( fingerprint == self.fingerprint):
+            print("Phone unlocked. Fingerprint matches.")
+        else: 
+            print("Phone locked. Fingerprint doesn't match.")
+
+
+westons_iphone = IPhone(4443332211, 14, 'Rose Gold')
+
+westons_iphone.set_fingerprint("Weston's thumb")
+# westons_iphone.unlock("Weston's thumb")
+
+class Android(Phone):
+    def __init__(self, phone_number, keyboard="Default"):
+        self.phone_number = phone_number
+        self.keyboard = keyboard
+
+    def __str__(self):
+        return f'This Android uses the {self.keyboard} keyboard and the number is {self.phone_number}'
+
+
+
+gabes_android = Android(6666661234, 'UK')
+
+gabes_android.call()
